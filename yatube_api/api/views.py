@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, permissions, viewsets
-from rest_framework import viewsets, mixins
+from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
 from .permissions import (
     AuthorPermission
@@ -11,7 +11,7 @@ from .serializers import (
     GroupSerializer,
     PostSerializer
 )
-from posts.models import Post, Group, User
+from posts.models import Post, Group
 
 
 class PostViewSet(viewsets.ModelViewSet):
