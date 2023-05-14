@@ -38,7 +38,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = get_object_or_404(Post, id=self.kwargs['id'])
-        queryset = post.comments.all()
+        queryset = post.comments.select_related('author').all()
         return queryset
 
     def perform_create(self, serializer):
