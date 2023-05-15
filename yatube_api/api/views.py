@@ -17,10 +17,7 @@ from posts.models import Post, Group
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.select_related('author').all()
     serializer_class = PostSerializer
-    permission_classes = (
-        permissions.IsAuthenticated,
-        AuthorPermission
-    )
+    permission_classes = [AuthorPermission]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['group', ]
 
@@ -30,11 +27,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = [AuthorPermission, permissions.IsAuthenticated]
-
-    def get_post(self):
-        post = get_object_or_404(Post, pk=self.kwargs.get("post_id"))
-        return post
+    permission_classes = [AuthorPermission]
 
     def get_queryset(self):
         post = get_object_or_404(Post, id=self.kwargs['id'])

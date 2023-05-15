@@ -8,10 +8,15 @@ class PostSerializer(serializers.ModelSerializer):
         read_only=True,
         default=serializers.CurrentUserDefault()
     )
+    comment = serializers.SerializerMethodField('get_comments')
 
     class Meta:
         model = Post
         fields = '__all__'
+
+    def get_comments(self, obj):
+        comments = list(obj.comments.all()[:10])
+        return comments
 
 
 class GroupSerializer(serializers.ModelSerializer):
